@@ -11,6 +11,18 @@ repositories {
     mavenCentral()
 }
 
+
+jar {
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes("Main-Class": "app.dva.ip.IpLocationApplication" )
+    }
+}
+
 dependencies {
     compile 'io.vertx:vertx-web:3.5.2'
     compile 'org.projectlombok:lombok:1.16.18'
